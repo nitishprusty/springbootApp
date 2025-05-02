@@ -32,10 +32,81 @@
       table th {
           background: linear-gradient(to right, #DDEB9D, #fff);
       }
+      .breadcrum {
+        margin-top: 10px;
+        margin-left: 10px;
+      }
+      .breadcrum a{ 
+        text-decoration: none;
+        color: black;
+        font-size: 15px;
+        font-size: bold;
+      }
+      .breadcrum a :hover {
+        color: blue;
+      }
+      .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #2c3e50;
+      padding: 0.8rem 2rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    }
+
+    .navbar .nav-left,
+    .navbar .nav-right {
+      display: flex;
+      gap: 1.2rem;
+    }
+
+    .navbar a {
+      color: #ecf0f1;
+      text-decoration: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      transition: background 0.3s ease;
+    }
+
+    .navbar a:hover {
+      background-color: #34495e;
+    }
+
+    @media (max-width: 600px) {
+      .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .nav-left, .nav-right {
+        flex-direction: column;
+        width: 100%;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+      }
+
+      .nav-right {
+        align-items: flex-end;
+      }
+    }
   </style>
 </head>
 
 <body>
+  <nav class="navbar">
+    <div class="nav-left">
+      <a href="/">Home</a>
+      <a href="/Employees/dashboard">Dashboard</a>
+    </div>
+    <div class="nav-right">
+      <a href="/login">Login</a>
+      <a href="#">Register</a>
+      <a href="/logout">Logout</a>
+    </div>
+  </nav>
+  <div class="breadcrum">
+    <a href="/">/LandingPage</a>
+  </div>
   <div class="container text-center" style="width: 18rem;">
     <div class="container-lg mx-auto p-2 ">Employee Records</div>
     <a class="btn btn-primary mx-auto p-2" href="/Employees/create">Add Employee Details
