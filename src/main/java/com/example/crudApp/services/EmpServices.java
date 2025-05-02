@@ -19,7 +19,8 @@ public class EmpServices {
     }
 
     public List<Employee> fetchEmployees() {
-        List<Employee> allEmp = empRepository.findAll();
+        List<Employee> allEmp = null;
+        allEmp = empRepository.findAll();
         return allEmp;  
     }
 
@@ -33,5 +34,8 @@ public class EmpServices {
         return emp;
     }
 
-    
+    public List<Employee> fetchEmployeeByName(String Name) {
+        List<Employee> emplist = empRepository.searchByName(Name);
+        return emplist;
+    }
 }

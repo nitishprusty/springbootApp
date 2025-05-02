@@ -3,7 +3,7 @@ import jakarta.validation.constraints.NotNull;
 
 
 public class Employeedto {
-    @NotNull(message = "This is a required Field")
+    @NotNull(message = "Name is required")
     private String emp_name;
     @NotNull(message = "This is a required Field")
     private float salary;
