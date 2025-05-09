@@ -11,82 +11,111 @@
         integrity="sha384-k6d4wzSIapyDyv1kpU366/PK5hCdSbCRGRCMv+eplOQJWyd1fbcAu9OCUj5zNLiq"
         crossorigin="anonymous"></script>
     <style>
-        html, body {
-          height: 100%;
-          margin: 0;
-          background-color: #FAF6E9;
-      }
-      .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      background-color: #2c3e50;
-      padding: 0.8rem 2rem;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    }
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            background-color: #FAF6E9;
+        }
 
-    .navbar .nav-left,
-    .navbar .nav-right {
-      display: flex;
-      gap: 1.2rem;
-    }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2c3e50;
+            padding: 0.8rem 2rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+        }
 
-    .navbar a {
-      color: #ecf0f1;
-      text-decoration: none;
-      padding: 0.5rem 1rem;
-      border-radius: 4px;
-      transition: background 0.3s ease;
-    }
+        .navbar .nav-left,
+        .navbar .nav-right {
+            display: flex;
+            gap: 1.2rem;
+        }
 
-    .navbar a:hover {
-      background-color: #34495e;
-    }
+        .navbar a {
+            color: #ecf0f1;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background 0.3s ease;
+        }
 
-    @media (max-width: 600px) {
-      .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+        .navbar a:hover {
+            background-color: #34495e;
+        }
 
-      .nav-left, .nav-right {
-        flex-direction: column;
-        width: 100%;
-        gap: 0.5rem;
-        margin-top: 0.5rem;
-      }
+        @media (max-width: 600px) {
+            .navbar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
 
-      .nav-right {
-        align-items: flex-end;
-      }
-    }
+            .nav-left,
+            .nav-right {
+                flex-direction: column;
+                width: 100%;
+                gap: 0.5rem;
+                margin-top: 0.5rem;
+            }
+
+            .nav-right {
+                align-items: flex-end;
+            }
+        }
     </style>
 </head>
 
 <body>
     <nav class="navbar">
         <div class="nav-left">
-          <a href="/">Home</a>
-          <a href="/Employees/dashboard">Dashboard</a>
+            <a href="/">Home</a>
+            <a href="/Employees/dashboard">Dashboard</a>
         </div>
         <div class="nav-right">
-          <a href="/login">Login</a>
-          <a href="#">Register</a>
-          <a href="/logout">Logout</a>
+            <a href="/login">Login</a>
+            <a href="#">Register</a>
+            <a href="/logout">Logout</a>
         </div>
-      </nav>
+    </nav>
     <div class="card position-absolute top-50 start-50 translate-middle border border-primary" style="width: 18rem;">
         <div class="container-lg mx-auto p-2 " style="--bs-body-color: #333; margin: 10px;">Add Employee Records</div>
         <form class="row g-3" method="post" style="margin: 10px;" th:object="${employeedto}" id="createEmpRecordForm">
-            <div class="mb-3" style="font-size: 12px;">
-                <label for="exampleFormControlInput1" class="form-label">Employee Name</label>
-                <input type="text" class="form-control" id="exampleFormControlInput1" th:field="${employeedto.emp_name}" required>
-                <div th:if="${#fields.hasErrors('emp_name')}" th:errors="*{emp_name}" class="text-danger fw-bold"></div>
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <div class="col-md-6">
+                <div class="mb-3" style="font-size: 12px;">
+                    <label for="exampleFormControlInput1" class="form-label">Employee Name</label>
+                    <input type="text" class="form-control" id="exampleFormControlInput1"
+                        th:field="${employeedto.emp_name}" required>
+                    <div th:if="${#fields.hasErrors('emp_name')}" th:errors="*{emp_name}" class="text-danger fw-bold">
+                    </div>
+                </div>
+                <div class="mb-3" style="font-size: 12px;">
+                    <label for="exampleFormControlTextarea1" class="form-label">Employee Salary</label>
+                    <input type="number" class="form-control" id="exampleFormControlTextarea1" rows="3"
+                        th:field="${employeedto.salary}" required>
+                    <div th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}" class="fw-bold"></div>
+                </div>
+                <div class="mb-3" style="font-size: 12px;">
+                    <label for="exampleFormControlTextarea1" class="form-label">Employee Email</label>
+                    <input type="text" class="form-control" id="exampleFormControlTextarea1" rows="3"
+                        th:field="${employeedto.emp_email}" required>
+                    <div th:if="${#fields.hasErrors('emp_email')}" th:errors="*{emp_email}" class="fw-bold"></div>
+                </div>
             </div>
-            <div class="mb-3" style="font-size: 12px;">
-                <label for="exampleFormControlTextarea1" class="form-label">Employee Salary</label>
-                <input type="number" class="form-control" id="exampleFormControlTextarea1" rows="3" th:field="${employeedto.salary}" required>
-                <div th:if="${#fields.hasErrors('salary')}" th:errors="*{salary}" class="fw-bold"></div>
+            <div class="col-md-6">
+                <div class="mb-3" style="font-size: 12px;">
+                    <label for="exampleFormControlTextarea1" class="form-label">Employee Address</label>
+                    <input type="text" class="form-control" id="exampleFormControlTextarea1" rows="3"
+                        th:field="${employeedto.emp_Address}" required>
+                    <div th:if="${#fields.hasErrors('emp_Address')}" th:errors="*{emp_Address}" class="fw-bold"></div>
+                </div>
+                <div class="mb-3" style="font-size: 12px;">
+                    <label for="exampleFormControlTextarea1" class="form-label">Employee Contact No.</label>
+                    <input type="text" class="form-control" id="exampleFormControlTextarea1" rows="3"
+                        th:field="${employeedto.emp_phoneNo}" required>
+                    <div th:if="${#fields.hasErrors('emp_phoneNo')}" th:errors="*{emp_phoneNo}" class="fw-bold"></div>
+                </div>
             </div>
             <div class="col-auto" style="font-size: 20px;">
                 <button type="submit" class="btn btn-primary mb-3">Add</button>

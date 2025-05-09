@@ -9,6 +9,6 @@ import com.example.crudApp.models.Employee;
 
 public interface EmpRepository extends JpaRepository<Employee,Integer> {
 
-    @Query("SELECT e FROM Employee e WHERE e.emp_name LIKE %?1%")
+    @Query("SELECT e FROM Employee e WHERE e.emp_name LIKE %?1% OR e.emp_email LIKE %?1% OR e.emp_Address LIKE %?1%")
     List<Employee> searchByName(String keyword);
 }

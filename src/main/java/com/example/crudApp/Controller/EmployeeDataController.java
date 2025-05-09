@@ -64,6 +64,9 @@ public class EmployeeDataController {
         Employee emp = new Employee();
         emp.setEmp_name(empdto.getEmp_name());
         emp.setSalary(empdto.getSalary());
+        emp.setEmp_email(empdto.getEmp_email());
+        emp.setEmp_Address(empdto.getEmp_Address());
+        emp.setEmp_phoneNo(empdto.getEmp_phoneNo());
 
         empServices.saveEmployeeDetails(emp);
         
@@ -93,9 +96,19 @@ public class EmployeeDataController {
         Employee emp = empServices.getEmpById(id);
         emp.setEmp_name(empdto.getEmp_name());
         emp.setSalary(empdto.getSalary());
+        emp.setEmp_email(empdto.getEmp_email());
+        emp.setEmp_Address(empdto.getEmp_Address());
+        emp.setEmp_phoneNo(empdto.getEmp_phoneNo());
 
         empServices.saveEmployeeDetails(emp);
 
         return "redirect:/Employees/dashboard";
+    }
+
+    @GetMapping("/Employees/EmpDetails")
+    public String fetchEmpDetails(@RequestParam int id,Model model) {
+        Employee emp = empServices.getEmpById(id);
+        model.addAttribute("employeedto", emp);
+        return "/Employees/empDetails";
     }
 }
