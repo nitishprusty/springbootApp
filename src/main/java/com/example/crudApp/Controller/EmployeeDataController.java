@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -11,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.crudApp.models.Employee;
 import com.example.crudApp.models.Employeedto;
+import com.example.crudApp.models.User;
 import com.example.crudApp.services.EmpServices;
+import com.example.crudApp.repository.*;
 
 import jakarta.validation.Valid;
 
@@ -30,6 +33,37 @@ public class EmployeeDataController {
     @Autowired
     private EmpServices empServices;
 
+    @Autowired
+    private userRepository uRepository;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @GetMapping("/register")
+    public String showRegistrationForm(Model model) {
+        model.addAttribute("user", new User());
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String registerUser(@ModelAttribute("user") User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole("ROLE_USER");
+        uRepository.save(user);
+        return "redirect:/login";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout() {
+        return "login";
+    }
+
+    
     @GetMapping({"","/"})
     public String ShowLandingPage() {
         return "/Employees/index";
